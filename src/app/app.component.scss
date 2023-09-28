@@ -1,0 +1,53 @@
+.container {
+    margin: 8px;
+    
+  h1 {
+    color: #f9f9f9;
+  }
+
+}
+
+/* Header */
+
+.navbar {
+    background-color: #343a40; 
+    
+    .navbar-brand {
+      color: #fff; 
+      font-weight: bold;
+
+      .logo {
+        width: 150px;
+        height: 60px; 
+        display: block;
+      }
+    }
+  
+    .navbar-nav {
+      .nav-link {
+        color: #fff;
+        margin-right: 15px;
+        
+        &:hover {
+          color: #fff; 
+        }
+      }
+    }
+  }
+
+  /* Footer */
+
+  footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 15px;
+  
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  }
+  
+  

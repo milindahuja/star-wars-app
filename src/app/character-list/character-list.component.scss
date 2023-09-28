@@ -1,0 +1,81 @@
+$primaryColor: #e8b42e;
+$secondaryColor: #dd8e2d;
+$backgroundColor: #f9f9f9;
+$hoverBackgroundColor: #ececec;
+
+.character-list {
+  padding: 20px;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: $secondaryColor;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .character-item {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #3c3b3b;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $hoverBackgroundColor;
+      .character-name {
+        color: #3c3b3b; 
+      }
+    }
+
+    .character-name {
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s ease; 
+      color: #ececec;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    
+    span {
+      color: #fff;
+    }
+
+    .pagination-button {
+      background-color: $primaryColor;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $secondaryColor;
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+
+    .pagination-info {
+      font-size: 16px;
+      margin: 0 10px;
+    }
+  }
+}

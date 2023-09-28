@@ -1,0 +1,61 @@
+.character-detail {
+    padding: 20px;
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #efefef;
+    }
+  
+    .detail-container {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      background-color: #f9f9f97d;
+  
+      .detail-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+  
+        .detail-label {
+          font-weight: bold;
+        }
+  
+        .detail-value {
+          font-size: 16px;
+        }
+  
+        &.description {
+          .detail-value {
+            font-size: 18px;
+            font-weight: normal;
+          }
+        }
+  
+        &.larger-text {
+          font-size: 18px;
+        }
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        
+        .button {
+          background-color: #e8b42e;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          margin-top: 20px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #dd8e2d;
+          }
+        }
+      }    
+    }
+  }

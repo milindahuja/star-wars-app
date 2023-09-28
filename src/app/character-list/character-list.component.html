@@ -1,0 +1,15 @@
+<div class="character-list">
+    <h2>Star Wars Characters</h2>
+    <ul>
+        <li *ngFor="let character of characters" class="character-item" (click)="goToCharacterDetail(character.uid)"> <!-- [routerLink]="['/characters/details', character.uid]" -->
+          <span class="character-name">{{ character.name }}</span>
+        </li>
+    </ul>
+    <!-- <router-outlet></router-outlet> -->
+    <div class="pagination">
+      <button (click)="goToPreviousPage()" [disabled]="!hasPreviousPage || isLoading" class="pagination-button">Previous</button>
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+      <button (click)="goToNextPage()" [disabled]="!hasNextPage || isLoading" class="pagination-button">Next</button>
+    </div>
+  </div>
+  
