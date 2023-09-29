@@ -1,8 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+/* global styles */
+
+:root {
+  --primary-color: #e8b42e;
+  --secondary-color: #dd8e2d;
+  --white: #ececec;
+  --dark-gray: #3c3b3b;
+  --transparent-gray: #f9f9f97d;
+}
+
 body {
   margin: 0;
   background-image: url("/assets/background.jpg"); 
   background-size: cover; 
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }

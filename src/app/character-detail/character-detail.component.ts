@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { CharacterDetail } from '../interface/interface';
+import { Detail, CharacterDetailResponse } from '../interface/interface';
+import { CacheService } from '../services/cache.service';
 
 @Component({
   selector: 'app-character-detail',
@@ -13,17 +14,37 @@ import { CharacterDetail } from '../interface/interface';
   styleUrls: ['./character-detail.component.scss']
 })
 export class CharacterDetailComponent {
-  character!: CharacterDetail; 
+  character!: Detail; 
 
-  constructor(private route: ActivatedRoute, private dataService: DataService, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private dataService: DataService, 
+    private router: Router,
+    private cacheService: CacheService
+    ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    const characterUid = this.route.snapshot.params['id'];
+    // Check if character data is in the cache
+    const cachedCharacter = this.cacheService.getData(`character-${characterUid}`);
+
+    if (cachedCharacter) {
+      this.character = cachedCharacter;
+    } else {
+      // Fetch character data from API
+      this.dataService.getCharacterById(characterUid).subscribe((response: CharacterDetailResponse) => {
+        this.character = response.result;
+
+        // Store character data in the cache
+        this.cacheService.storeData(`character-${characterUid}`, this.character);
+      });
+    }
+    /* this.route.params.subscribe(params => {
       const characterId = params['id']; // Retrieve character ID from route parameters
       this.dataService.getCharacterById(characterId).subscribe(data => {
         this.character = data.result; // Fetch and assign character details
       });
-    });
+    }); */
   }
 
   goBackToCharacterList() {

@@ -1,15 +1,10 @@
-$primaryColor: #e8b42e;
-$secondaryColor: #dd8e2d;
-$backgroundColor: #f9f9f9;
-$hoverBackgroundColor: #ececec;
-
 .character-list {
   padding: 20px;
 
   h2 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: $secondaryColor;
+    color: var(--secondary-color);
   }
 
   ul {
@@ -21,17 +16,17 @@ $hoverBackgroundColor: #ececec;
     display: flex;
     align-items: center;
     background-color: transparent;
-    border: 1px solid #3c3b3b;
+    border: 1px solid var(--dark-gray);
     border-radius: 4px;
     margin: 10px 0;
     padding: 10px;
-    transition: background-color 0.3s ease;
+    transition: var(--white) 0.3s ease;
     cursor: pointer;
 
     &:hover {
-      background-color: $hoverBackgroundColor;
+      background-color: var(--white);
       .character-name {
-        color: #3c3b3b; 
+        color: var(--dark-gray); 
       }
     }
 
@@ -39,7 +34,7 @@ $hoverBackgroundColor: #ececec;
       font-weight: bold;
       font-size: 18px;
       transition: color 0.3s ease; 
-      color: #ececec;
+      color: var(--white);
     }
   }
 
@@ -50,12 +45,12 @@ $hoverBackgroundColor: #ececec;
     margin-top: 20px;
     
     span {
-      color: #fff;
+      color: var(--white);
     }
 
     .pagination-button {
-      background-color: $primaryColor;
-      color: #fff;
+      background-color: var(--primary-color);
+      color: var(--white);
       border: none;
       border-radius: 4px;
       padding: 10px 20px;
@@ -64,12 +59,13 @@ $hoverBackgroundColor: #ececec;
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: $secondaryColor;
+        background-color: var(--secondary-color);
       }
 
       &:disabled {
-        background-color: #ccc;
+        background-color: var(--white);
         cursor: not-allowed;
+        color: var(--dark-gray);
       }
     }
 

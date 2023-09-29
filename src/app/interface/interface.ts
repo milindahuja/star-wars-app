@@ -12,23 +12,28 @@ export interface CharacterResponse {
     next: string | null;
   }
 
-  export interface CharacterDetail {
-      properties: {
-        height: string;
-        mass: string;
-        hair_color: string;
-        skin_color: string;
-        eye_color: string;
-        birth_year: string;
-        gender: string;
-        name: string;
-        homeworld: string;
-        url: string;
-      };
-      description: string;
-      _id: string;
-      uid: string;
-      __v: number;
+  export interface CharacterDetailResponse {
+    message: string;
+    result: Detail;
+  }
+
+  export interface Detail {
+    properties: {
+      height: string;
+      mass: string;
+      hair_color: string;
+      skin_color: string;
+      eye_color: string;
+      birth_year: string;
+      gender: string;
+      name: string;
+      homeworld: string;
+      url: string;
+    };
+    description: string;
+    _id: string;
+    uid: string;
+    __v: number;
   }
 
 export interface PlanetResponse {

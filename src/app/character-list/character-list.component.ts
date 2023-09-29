@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { DataService } from '../services/data.service';
 import { Character, CharacterResponse } from '../interface/interface';
+import { CacheService } from '../services/cache.service';
 
 @Component({
   selector: 'app-character-list',
@@ -45,7 +46,7 @@ export class CharacterListComponent implements OnInit{
     private dataService: DataService,
     private router: Router,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
+    private cacheService: CacheService
   ) {}
 
   ngOnInit() {
@@ -57,7 +58,30 @@ export class CharacterListComponent implements OnInit{
   }
 
   loadCharacters(page: number) {
-    this.dataService.getCharacters(page).subscribe(this.handleCharacterResponse);
+    const cacheKey = `characters-page-${page}`; // Define a cache key
+    const cachedData = this.cacheService.getData(cacheKey);
+
+    if (cachedData) {
+      // Use cached data if available
+      this.handleCharacterResponse(cachedData);
+      this.isLoading = false;
+    } else {
+      // Fetch data from the API
+      this.dataService.getCharacters(page).subscribe({
+        next: (response: CharacterResponse) => {
+          this.handleCharacterResponse(response);
+          // Save the response in the cache
+          this.cacheService.storeData(cacheKey, response);
+          this.isLoading = false;
+        },
+        error: (error: any) => {
+          // Handle errors...
+
+          // Set isLoading to false in case of an error
+          this.isLoading = false;
+        }
+      });
+    }
   }
 
   goToNextPage() {

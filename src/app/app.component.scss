@@ -2,7 +2,7 @@
     margin: 8px;
     
   h1 {
-    color: #f9f9f9;
+    color: var(--white);
   }
 
 }
@@ -10,10 +10,10 @@
 /* Header */
 
 .navbar {
-    background-color: #343a40; 
+    background-color: var(--dark-gray); 
     
     .navbar-brand {
-      color: #fff; 
+      color: var(--white); 
       font-weight: bold;
 
       .logo {
@@ -25,11 +25,11 @@
   
     .navbar-nav {
       .nav-link {
-        color: #fff;
+        color: var(--white);
         margin-right: 15px;
         
         &:hover {
-          color: #fff; 
+          color: var(--white); 
         }
       }
     }
@@ -38,8 +38,8 @@
   /* Footer */
 
   footer {
-    background-color: #343a40;
-    color: #fff;
+    background-color: var(--dark-gray);
+    color: var(--white);
     padding: 15px;
   
     .container {

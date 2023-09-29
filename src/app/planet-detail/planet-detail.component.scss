@@ -4,12 +4,12 @@
     h2 {
       font-size: 24px;
       margin-bottom: 20px;
-      color: #efefef;
+      color: var(--white);
     }
   
     .detail-container {
-      background-color: #f9f9f97d;
-      border: 1px solid #ccc;
+      background-color: var(--transparent-gray);
+      border: 1px solid var(--white);
       border-radius: 4px;
       padding: 10px;
     }
@@ -33,8 +33,8 @@
         margin-top: 10px;
         
         .button {
-          background-color: #e8b42e;
-          color: #fff;
+          background-color: var(--primary-color);
+          color: var(--white);
           border: none;
           padding: 10px 20px;
           margin-top: 20px;
@@ -42,7 +42,7 @@
           transition: background-color 0.3s;
 
           &:hover {
-            background-color: #dd8e2d;
+            background-color: var(--secondary-color);
           }
         }
       } 
