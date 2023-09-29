@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CharacterResponse, DetailResponse, PlanetResponse } from '../interface/interface';
+import { CharacterResponse, DetailResponse } from '../interface/interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,16 +26,6 @@ export class DataService {
 
   getPageByUrl(url: string): Observable<CharacterResponse> {
     return this.fetchData(url);
-  }
-
-  getCharacterById(id: string): Observable<any> {
-    const url = `${this.apiUrl}/people/${id}`;
-    return this.http.get<CharacterResponse>(url);
-  }
-
-  getPlanetById(id: string): Observable<PlanetResponse> {
-    const url = `${this.apiUrl}/planets/${id}`;
-    return this.http.get<PlanetResponse>(url);
   }
 
   getDetailById(id: string, detailType: string): Observable<DetailResponse> {

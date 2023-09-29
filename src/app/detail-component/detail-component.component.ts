@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DataService } from '../services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CacheService } from '../services/cache.service';
-import { CharacterDetail, CharacterDetailResponse, Detail, DetailResponse, Planet, PlanetResponse } from '../interface/interface';
+import { Detail, DetailResponse } from '../interface/interface';
 import { CharacterDetailComponent } from './character/character-detail.component';
 import { PlanetDetailComponent } from './planet/planet-detail.component';
 
@@ -16,10 +16,30 @@ import { PlanetDetailComponent } from './planet/planet-detail.component';
 })
 export class DetailComponent {
   @Input() detailType: string = ''; // Input property to receive the detail data
-  //@Output() goBack = new EventEmitter<void>(); // Output event to notify the parent component to navigate back
-  character!: CharacterDetail;
-  planet!: Planet;
+  @Output() goBack = new EventEmitter<void>(); // Output event to notify the parent component to navigate back
   detail!: Detail;
+
+  detailFields: { [key: string]: { label: string; property: string }[] } = {
+    people: [
+      { label: 'Height', property: 'height' },
+      { label: 'Mass', property: 'mass' },
+      { label: 'Hair Color', property: 'hair_color' },
+      { label: 'Skin Color', property: 'skin_color' },
+      { label: 'Eye Color', property: 'eye_color' },
+      { label: 'Birth Year', property: 'birth_year' },
+      { label: 'Gender', property: 'gender' },
+    ],
+    planets: [
+      { label: 'Diameter', property: 'diameter' },
+      { label: 'Rotation Period', property: 'rotation_period' },
+      { label: 'Orbital Period', property: 'orbital_period' },
+      { label: 'Gravity', property: 'gravity' },
+      { label: 'Population', property: 'population' },
+      { label: 'Climate', property: 'climate' },
+      { label: 'Terrain', property: 'terrain' },
+      { label: 'Surface Water', property: 'surface_water' },
+    ],
+  };
 
   constructor(
     private dataService: DataService,
@@ -35,11 +55,6 @@ export class DetailComponent {
     const cachedDetail = this.cacheService.getData(`${this.detailType}-${uid}`);
 
     if (cachedDetail) {
-      if (this.detailType === 'people') {
-        this.character = cachedDetail;
-      } else {
-        this.planet = cachedDetail;
-      }
       this.detail = cachedDetail;
     } else {
       // Fetch character data from API
@@ -49,48 +64,20 @@ export class DetailComponent {
 
   // Load details based on detail type (planet or character)
   loadDetailData(id: string) {
-    this.dataService.getDetailById(id, this.detailType).subscribe((response: any) => {
-      if (this.detailType === 'people') {
-        this.character = response.result;
-      } else {
-        this.planet = response.result;
-      }
+    this.dataService.getDetailById(id, this.detailType).subscribe((response: DetailResponse) => {
       this.detail = response.result;
        // Store planet data in the cache
        this.cacheService.storeData(`${this.detailType}-${id}`, this.detail);
     });
   }
 
-  /* goBackToParent() {
+  goBackToParent() {
     // Emit the goBack event to notify the parent component to navigate back
     this.goBack.emit();
-  } */
-
-  goBackToCharacterList() {
-    const queryParams = this.route.snapshot.queryParams;
-    const page = queryParams['page'] || 1; // Default to page 1 if not provided
-    const limit = queryParams['limit'] || 10; // Default limit value
-
-    // Navigate back to character list with preserved pagination data
-    this.router.navigate(['/characters'], {
-      queryParams: {
-        page,
-        limit
-      }
-    });
-  }
-
-  goBackToCharacterDetail() {
-    const queryParams = {
-      ...this.route.snapshot.queryParams,
-      characterUid: this.route.snapshot.queryParams['characterUid'] || '', // Get the character UID from query params
-    };
-  
-    this.router.navigate(['/details/character', queryParams.characterUid], { queryParams });
   }
 
   goToPlanetDetail(planetUrl: string) {
-    const characterUid = this.character?.uid || '';
+    const characterUid = this.detail?.uid || '';
     const planetId = planetUrl.split('/').pop();
     // Preserve the existing query parameters while adding characterUid
     const queryParams = {

@@ -27,7 +27,8 @@ export class PlanetDetailComponent implements OnInit{
       characterUid: this.route.snapshot.queryParams['characterUid'] || '', // Get the character UID from query params
     };
   
-    this.router.navigate(['/characters/details', queryParams.characterUid], { queryParams });
+    console.log('queryParams', queryParams);
+    this.router.navigate(['/details/character', queryParams.characterUid], { queryParams });
   }
   
 }

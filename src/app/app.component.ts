@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { CharacterListComponent } from './character-list/character-list.component';
 import { DynamicChildLoaderDirective } from './directives/dynamic-child-loader.directive';
 
 @Component({
