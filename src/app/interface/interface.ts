@@ -14,10 +14,10 @@ export interface CharacterResponse {
 
   export interface CharacterDetailResponse {
     message: string;
-    result: Detail;
+    result: CharacterDetail;
   }
 
-  export interface Detail {
+  export interface CharacterDetail {
     properties: {
       height: string;
       mass: string;
@@ -39,9 +39,6 @@ export interface CharacterResponse {
 export interface PlanetResponse {
   message: string;
   result: Planet;
-  _id: string;
-  uid: string;
-  __v: number;
 }
 
 export interface Planet {
@@ -60,4 +57,39 @@ export interface Planet {
     url: string;
   };
   description: string;
+  _id: string;
+  uid: string;
+  __v: number;
+}
+
+export interface Detail {
+  properties: {
+    height: string;
+    mass: string;
+    hair_color: string;
+    skin_color: string;
+    eye_color: string;
+    birth_year: string;
+    gender: string;
+    diameter?: string; // Add optional properties for planet details
+    rotation_period?: string;
+    orbital_period?: string;
+    gravity?: string;
+    population?: string;
+    climate?: string;
+    terrain?: string;
+    surface_water?: string;
+  };
+  description: string;
+  _id: string;
+  uid: string;
+  __v: number;
+  homeworld?: string; // Add optional property for character details
+  name: string;
+  url: string;
+}
+
+export interface DetailResponse {
+  message: string;
+  result: Detail;
 }

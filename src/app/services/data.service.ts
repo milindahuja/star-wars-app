@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CharacterResponse, PlanetResponse } from '../interface/interface';
+import { CharacterResponse, DetailResponse, PlanetResponse } from '../interface/interface';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +36,10 @@ export class DataService {
   getPlanetById(id: string): Observable<PlanetResponse> {
     const url = `${this.apiUrl}/planets/${id}`;
     return this.http.get<PlanetResponse>(url);
+  }
+
+  getDetailById(id: string, detailType: string): Observable<DetailResponse> {
+    const url = `${this.apiUrl}/${detailType}/${id}`;
+    return this.http.get<DetailResponse>(url);
   }
 }
