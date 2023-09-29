@@ -30,7 +30,7 @@ export class DataService {
 
   getCharacterById(id: string): Observable<any> {
     const url = `${this.apiUrl}/people/${id}`;
-    return this.http.get(url);
+    return this.http.get<CharacterResponse>(url);
   }
 
   getPlanetById(id: string): Observable<PlanetResponse> {

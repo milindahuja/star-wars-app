@@ -100,7 +100,13 @@ export class CharacterListComponent implements OnInit{
 
   goToCharacterDetail(characterUid: string) {
     // Include pagination data in the URL when navigating to character detail
-    this.router.navigate(['/characters/details', characterUid], {
+    /* this.router.navigate(['/characters/details', characterUid], {
+      queryParams: {
+        page: this.currentPage,
+        limit: this.pageSize
+      }
+    }); */
+    this.router.navigate(['/details/character', characterUid], {
       queryParams: {
         page: this.currentPage,
         limit: this.pageSize
