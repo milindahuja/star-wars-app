@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { DynamicChildLoaderDirective } from './directives/dynamic-child-loader.directive';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +7,6 @@ import { DynamicChildLoaderDirective } from './directives/dynamic-child-loader.d
 })
 
 export class AppComponent {
-  @ViewChild(DynamicChildLoaderDirective, { static: true })
-  dynamicChild!: DynamicChildLoaderDirective;
   
   title = 'star-wars-app';
 
