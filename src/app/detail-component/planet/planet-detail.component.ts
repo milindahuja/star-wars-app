@@ -10,24 +10,18 @@ import { DetailComponent } from '../detail-component.component';
   templateUrl: './planet-detail.component.html',
   styleUrls: ['./planet-detail.component.scss']
 })
-export class PlanetDetailComponent implements OnInit{
+export class PlanetDetailComponent {
   
   constructor(
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
-
-  ngOnInit(): void {
-  }
-
   goBackToCharacterDetail() {
     const queryParams = {
       ...this.route.snapshot.queryParams,
       characterUid: this.route.snapshot.queryParams['characterUid'] || '', // Get the character UID from query params
     };
-  
-    console.log('queryParams', queryParams);
     this.router.navigate(['/details/character', queryParams.characterUid], { queryParams });
   }
   

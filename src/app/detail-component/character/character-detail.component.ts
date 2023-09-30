@@ -18,9 +18,6 @@ export class CharacterDetailComponent {
     private router: Router
     ) {}
 
-  ngOnInit() {
-  }
-
   goBackToCharacterList() {
     const queryParams = this.route.snapshot.queryParams;
     const page = queryParams['page'] || 1; // Default to page 1 if not provided
