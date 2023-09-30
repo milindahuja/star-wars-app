@@ -57,6 +57,7 @@ export class CharacterListComponent implements OnInit{
     });
   }
 
+  // get characters list
   loadCharacters(page: number) {
     const cacheKey = `characters-page-${page}`; // Define a cache key
     const cachedData = this.cacheService.getData(cacheKey);
@@ -84,6 +85,7 @@ export class CharacterListComponent implements OnInit{
     }
   }
 
+  /* Pagination */
   goToNextPage() {
     if (this.hasNextPage && this.nextUrl) {
       this.currentPage++;
@@ -98,14 +100,8 @@ export class CharacterListComponent implements OnInit{
     }
   }
 
+  // navigation to character detail page
   goToCharacterDetail(characterUid: string) {
-    // Include pagination data in the URL when navigating to character detail
-    /* this.router.navigate(['/characters/details', characterUid], {
-      queryParams: {
-        page: this.currentPage,
-        limit: this.pageSize
-      }
-    }); */
     this.router.navigate(['/details/character', characterUid], {
       queryParams: {
         page: this.currentPage,
