@@ -1,5 +1,10 @@
 /* global styles */
 
+html, 
+body {
+    height: 100%;
+}
+
 :root {
   --primary-color: #e8b42e;
   --secondary-color: #dd8e2d;
@@ -14,6 +19,7 @@ body {
   background-size: cover; 
   background-repeat: no-repeat;
   background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 *,
