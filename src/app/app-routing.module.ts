@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CharacterListComponent } from './character-list/character-list.component';
-import { CharacterDetailComponent } from './detail-component/character/character-detail.component';
-import { PlanetDetailComponent } from './detail-component/planet/planet-detail.component';
 
 /* const routes: Routes = [
   { path: '', redirectTo: '/characters', pathMatch: 'full' },
@@ -14,12 +11,27 @@ import { PlanetDetailComponent } from './detail-component/planet/planet-detail.c
 
 const routes: Routes = [
   { path: '', redirectTo: '/characters', pathMatch: 'full' },
-  { path: 'characters', component: CharacterListComponent },
+  { 
+    path: 'characters', 
+    loadComponent: () => 
+    import('./character-list/character-list.component')
+        .then(m => m.CharacterListComponent)
+  },
   {
     path: 'details',
     children: [
-      { path: 'character/:id', component: CharacterDetailComponent },
-      { path: 'planet/:id', component: PlanetDetailComponent },
+      { 
+        path: 'character/:id', 
+        loadComponent: () => 
+        import('./detail-component/character/character-detail.component')
+        .then(m => m.CharacterDetailComponent)
+      },
+      { 
+        path: 'planet/:id', 
+        loadComponent: () => 
+        import('./detail-component/planet/planet-detail.component')
+        .then(m => m.PlanetDetailComponent)
+      },
       { path: '', redirectTo: 'character', pathMatch: 'full' },
     ],
   },

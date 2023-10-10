@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DataService } from '../services/data.service';
 import { Character, CharacterResponse } from '../interface/interface';
 import { CacheService } from '../services/cache.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-character-list',
@@ -13,7 +14,7 @@ import { CacheService } from '../services/cache.service';
   templateUrl: './character-list.component.html',
   styleUrls: ['./character-list.component.scss']
 })
-export class CharacterListComponent implements OnInit{
+export class CharacterListComponent implements OnInit, OnDestroy{
   characters: Character[] = [];
   currentPage = 1;
   totalPages = 0;
@@ -23,13 +24,17 @@ export class CharacterListComponent implements OnInit{
   nextUrl: string | null = null;
   previousUrl: string | null = null;
   isLoading = false;
+  /* characterListSubscription!: Subscription;
+  characterPageSubscription!: Subscription; */
+  subscriptionsArray: Subscription[] = [];
+  
 
   private loadPage(url: string) {
     this.isLoading = true;
-    this.dataService.getPageByUrl(url).subscribe((response: CharacterResponse) => {
+    this.subscriptionsArray.push(this.dataService.getPageByUrl(url).subscribe((response: CharacterResponse) => {
       this.handleCharacterResponse(response);
       this.isLoading = false;
-    });
+    }));
   }
 
   private handleCharacterResponse = (response: CharacterResponse) => {
@@ -51,10 +56,10 @@ export class CharacterListComponent implements OnInit{
 
   ngOnInit() {
     // Retrieve pagination data from route parameters
-    this.route.queryParams.subscribe(params => {
+    this.subscriptionsArray.push(this.route.queryParams.subscribe(params => {
       this.currentPage = params['page'] || 1;
       this.loadCharacters(this.currentPage);
-    });
+    }));
   }
 
   // get characters list
@@ -68,7 +73,7 @@ export class CharacterListComponent implements OnInit{
       this.isLoading = false;
     } else {
       // Fetch data from the API
-      this.dataService.getCharacters(page).subscribe({
+      this.subscriptionsArray.push(this.dataService.getCharacters(page).subscribe({
         next: (response: CharacterResponse) => {
           this.handleCharacterResponse(response);
           // Save the response in the cache
@@ -81,7 +86,7 @@ export class CharacterListComponent implements OnInit{
           // Set isLoading to false in case of an error
           this.isLoading = false;
         }
-      });
+      }));
     }
   }
 
@@ -108,5 +113,13 @@ export class CharacterListComponent implements OnInit{
         limit: this.pageSize
       }
     });
+  }
+
+  ngOnDestroy() {
+    if(this.subscriptionsArray.length) {
+      this.subscriptionsArray.forEach((item: Subscription) => {
+        item.unsubscribe();
+      });
+    }
   }
 }
